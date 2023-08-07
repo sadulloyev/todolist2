@@ -1,5 +1,3 @@
-//jshint esversion:6
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -9,7 +7,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-mongoose.connect('mongodb://localhost:27017/todolistDB', {
+mongoose.connect('mongodb://127.0.0.1:27017/todolistDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true, // Add this option for Mongoose 6.0 and later
 });
@@ -20,7 +18,7 @@ const itemsSchema = new mongoose.Schema({
 const Item = mongoose.model("Item", itemsSchema);
 
 const item1 = new Item({
-  name: 'Welocome to your todo list!'
+  name: 'Welcome to your to do list!'
 })
 
 const item2 = new Item({
@@ -35,18 +33,19 @@ const defaultItems = [item1, item2, item3];
 (async () => {
   try {
     await Item.insertMany(defaultItems);
-    console.log('Items inserted successfully!');
+    console.log('Default items inserted successfully!');
   } catch (err) {
-    console.error('Error inserting items:', err);
+    console.error('Error inserting default items:', err);
   }
+  // Now start the server
+  app.listen(3000, function () {
+    console.log("Server started on port 3000");
+  });
 })();
-
 
 app.get("/", function (req, res) {
 
-
-
-  res.render("list", { listTitle: 'Today', newListItems: items });
+  res.render("list", { listTitle: 'Today', newListItems: defaultItems });
 
 });
 
@@ -63,6 +62,7 @@ app.post("/", function (req, res) {
   }
 });
 
+
 app.get("/work", function (req, res) {
   res.render("list", { listTitle: "Work List", newListItems: workItems });
 });
@@ -71,9 +71,7 @@ app.get("/about", function (req, res) {
   res.render("about");
 });
 
-app.listen(3000, function () {
-  console.log("Server started on port 3000");
-});
+
 
 mongoose.connection.on('error', (err) => {
   console.error('MongoDB connection error:', err);
