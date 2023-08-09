@@ -64,18 +64,21 @@ app.get("/", async function (req, res) {
 });
 
 
-app.post("/", function (req, res) {
+app.post("/", async function (req, res) {
+  const itemName = req.body.newItem;
+  const item = new Item({
+    name: itemName,
+  });
 
-  const item = req.body.newItem;
-
-  if (req.body.list === "Work") {
-    workItems.push(item);
-    res.redirect("/work");
-  } else {
-    items.push(item);
-    res.redirect("/");
+  try {
+    await item.save();
+    res.status(201).json({ message: "Item saved successfully." });
+  } catch (error) {
+    console.error("Error saving item:", error);
+    res.status(500).json({ message: "Error saving item." });
   }
 });
+
 
 
 app.get("/work", function (req, res) {
