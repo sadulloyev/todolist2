@@ -51,12 +51,12 @@ const defaultItems = [item1, item2, item3];
   });
 })();
 
-const itemNames = defaultItems.map(item => item.name);
+// const itemNames = defaultItems.map(item => item.name);
 
 app.get("/", async function (req, res) {
   try {
     const foundItems = await Item.find({});
-    res.render("list", { listTitle: 'Today', newListItems: itemNames });
+    res.render("list", { listTitle: 'Today', newListItems: foundItems });
   } catch (err) {
     console.error(err);
     // Handle the error and respond accordingly
