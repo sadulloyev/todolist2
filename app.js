@@ -72,7 +72,9 @@ app.post("/", async function (req, res) {
 
   try {
     await item.save();
-    res.status(201).json({ message: "Item saved successfully." });
+    console.log("Item saved successfully.");
+    res.redirect('/');
+
   } catch (error) {
     console.error("Error saving item:", error);
     res.status(500).json({ message: "Error saving item." });
