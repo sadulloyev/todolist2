@@ -2,12 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
+const _ = require('lodash');
 
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-mongoose.connect('mongodb://127.0.0.1:27017/todolistDB', {
+mongoose.connect('mongodb+srv://sadullaevsh:Test_2023@firstdb.mnz0get.mongodb.net/?retryWrites=true&w=majority/todolistDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true, // Add this option for Mongoose 6.0 and later
 });
@@ -71,7 +72,7 @@ app.get("/", async function (req, res) {
 });
 
 app.get("/:customListName", async function (req, res) {
-  const customListName = upperCase(req.params.customListName);
+  const customListName = _.upperFirst(req.params.customListName);
 
   async function findList() {
     try {
