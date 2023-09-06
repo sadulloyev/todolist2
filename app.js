@@ -54,17 +54,17 @@ const List = mongoose.model("List", listschema);
     console.error('Error inserting default items:', err);
   }
   // Now start the server
-
+  let port = process.env.PORT;
+  if (port == null || port == "") {
+    port = 3000;
+  }
+  app.listen(port);
+  app.listen(port, function () {
+    console.log("Server has started seccessfully");
+  });
 
 })();
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
-app.listen(port);
-app.listen(port, function () {
-  console.log("Server has started seccessfully");
-});
+
 
 
 app.get("/", async function (req, res) {
