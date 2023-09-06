@@ -8,7 +8,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-mongoose.connect('mongodb+srv://sadullaevsh:Test_2023@firstdb.mnz0get.mongodb.net/', {
+mongoose.connect('mongodb+srv://sadullaevsh:Test_2023@firstdb.mnz0get.mongodb.net/FirstDBgit', {
   useNewUrlParser: true,
   useUnifiedTopology: true, // Add this option for Mongoose 6.0 and later
 });
@@ -53,17 +53,14 @@ const List = mongoose.model("List", listschema);
   } catch (err) {
     console.error('Error inserting default items:', err);
   }
-  // Now start the server
-  let port = process.env.PORT;
-  if (port == null || port == "") {
-    port = 3000;
-  }
-  app.listen(port);
-  app.listen(port, function () {
-    console.log("Server has started seccessfully");
-  });
 
 })();
+// Now start the server
+const port = process.env.PORT || 3001;
+app.listen(port, function () {
+  console.log("Server has started successfully");
+});
+
 
 
 
