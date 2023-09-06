@@ -8,7 +8,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-mongoose.connect('mongodb+srv://sadullaevsh:Test_2023@firstdb.mnz0get.mongodb.net/FirstDBgit', {
+mongoose.connect('mongodb+srv://sadullaevsh:Test_2023@firstdb.mnz0get.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true, // Add this option for Mongoose 6.0 and later
 });
